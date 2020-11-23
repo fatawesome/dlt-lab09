@@ -19,10 +19,10 @@
     <label for="num_b">
       <input id="num_b" type="number" class="num-b">
     </label>
-    <button id="add" onclick="handleAdd();" class="add">+</button>
-    <button id="sub" onclick="handleSub();" class="sub">-</button>
-    <button id="mul" onclick="handleMul();" class="mul">*</button>
-    <button id="div" onclick="handleDiv();" class="div">/</button>
+    <button id="add" onclick="handleAdd(document.getElementById('num_a').value, document.getElementById('num_b').value);" class="add">+</button>
+    <button id="sub" onclick="handleSub(document.getElementById('num_a').value, document.getElementById('num_b').value);" class="sub">-</button>
+    <button id="mul" onclick="handleMul(document.getElementById('num_a').value, document.getElementById('num_b').value);" class="mul">*</button>
+    <button id="div" onclick="handleDiv(document.getElementById('num_a').value, document.getElementById('num_b').value);" class="div">/</button>
     
     Result: <span id="result">0</span>
 

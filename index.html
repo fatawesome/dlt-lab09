@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web 3 Demo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+    lab 9 calculator
+    <br >
+    <label for="num_a">
+      <input id="num_a" type="number" class="num-a">
+    </label>
+    <label for="num_b">
+      <input id="num_b" type="number" class="num-b">
+    </label>
+    <button id="add" onclick="handleAdd();" class="add">+</button>
+    <button id="sub" onclick="handleSub();" class="sub">-</button>
+    <button id="mul" onclick="handleMul();" class="mul">*</button>
+    <button id="div" onclick="handleDiv();" class="div">/</button>
+    
+    Result: <span id="result">0</span>
+
+    <script type="text/javascript">
+        async function loadWeb3() {
+            window.ethereum = "https://ropsten.infura.io/v3/1ebcf809d64347e880264e9c8b00fa55"
+            if (window.ethereum) {
+                window.web3 = new Web3(window.ethereum);
+
+            }
+        }
+
+        async function loadContract() {
+            return await new window.web3.eth.Contract([
+              {
+                "inputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "x",
+                    "type": "int256"
+                  },
+                  {
+                    "internalType": "int256",
+                    "name": "y",
+                    "type": "int256"
+                  }
+                ],
+                "name": "add",
+                "outputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                  }
+                ],
+                "stateMutability": "pure",
+                "type": "function"
+              },
+              {
+                "inputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "x",
+                    "type": "int256"
+                  },
+                  {
+                    "internalType": "int256",
+                    "name": "y",
+                    "type": "int256"
+                  }
+                ],
+                "name": "div",
+                "outputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                  }
+                ],
+                "stateMutability": "pure",
+                "type": "function"
+              },
+              {
+                "inputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "x",
+                    "type": "int256"
+                  },
+                  {
+                    "internalType": "int256",
+                    "name": "y",
+                    "type": "int256"
+                  }
+                ],
+                "name": "mul",
+                "outputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                  }
+                ],
+                "stateMutability": "pure",
+                "type": "function"
+              },
+              {
+                "inputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "x",
+                    "type": "int256"
+                  },
+                  {
+                    "internalType": "int256",
+                    "name": "y",
+                    "type": "int256"
+                  }
+                ],
+                "name": "sub",
+                "outputs": [
+                  {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                  }
+                ],
+                "stateMutability": "pure",
+                "type": "function"
+              }
+            ], '0x76671691234fed45F7cc83f06b7d70a4003733f2');
+        }
+
+        async function load() {
+            await loadWeb3();
+            window.contract = await loadContract();
+        }
+
+        async function handleAdd(a, b) {
+          const res = await window.contract.methods.add(a, b).call();
+          updateResult(res);
+        }
+        async function handleSub(a, b) {
+          const res = await window.contract.methods.sub(a, b).call();
+          updateResult(res);
+        }
+        async function handleMul(a, b) {
+          const res = await window.contract.methods.mul(a, b).call();
+          updateResult(res);
+        }
+        async function handleDiv(a, b) {
+          const res = await window.contract.methods.div(a, b).call();
+          updateResult(res);
+        }
+
+        function updateResult(result) {
+            const resultEl = document.getElementById('result');
+            resultEl.innerHTML = result;
+            console.log(result);
+        }
+
+        load();
+    </script>
+</body>
+
+</html>
